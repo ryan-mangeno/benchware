@@ -1,0 +1,32 @@
+# build artifacts
+build/
+bin/
+lib/
+*.o
+*.a
+*.dylib
+*.out
+
+# libtorch binaries
+libtorch/
+*.zip
+
+# python virtual environment
+scripts/.venv/
+.venv/
+__pycache__/
+*.pyc
+
+# instrumentor outputs
+*.json
+
+# ide and system files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# xcode specific
+DerivedData/
+*.xcodeproj/
+*.xcworkspace/
