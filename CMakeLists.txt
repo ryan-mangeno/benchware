@@ -30,10 +30,20 @@ add_executable(cpu-benchmark ${CPU_SRC})
 
 target_link_libraries(cpu-benchmark PRIVATE benchware)
 
-
-
 if(APPLE)
     find_library(METAL_LIB Metal REQUIRED)
     find_library(FOUNDATION_LIB Foundation REQUIRED)
-    target_link_libraries(benchware PRIVATE ${METAL_LIB} ${FOUNDATION_LIB})
+    find_library(QUARTZ_LIB QuartzCore REQUIRED) # Often needed for Metal layers
+
+    file(GLOB METAL_SOURCES 
+        "benchware/Profiler/Hardware/GPU/*.mm"
+    )
+    
+    target_sources(benchware PRIVATE ${METAL_SOURCES})
+
+    set_source_files_properties(${METAL_SOURCES} PROPERTIES COMPILE_FLAGS "-fobjc-arc")
+
+    target_link_libraries(benchware PRIVATE ${METAL_LIB} ${FOUNDATION_LIB} ${QUARTZ_LIB})
+
+    target_compile_definitions(benchware PUBLIC BW_PLATFORM_APPLE)
 endif()

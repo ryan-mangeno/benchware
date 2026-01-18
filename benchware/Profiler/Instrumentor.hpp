@@ -19,13 +19,15 @@
 
 
 namespace benchware {
-
     struct ProfileResult
     {
         std::string Name;
         long long Start, End;
         uint32_t ThreadID;
         std::string Category; //  "CPU", "GPU", "Render"
+
+        ProfileResult(const char* name, long long start, long long end, uint32_t t_id, const char* category) : 
+            Name(name), Start(start), End(end), ThreadID(t_id), Category(category) {}
     };
 
     struct InstrumentationSession
